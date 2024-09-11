@@ -1,0 +1,12 @@
+.px-10.sm:px-40.pt-12
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    Add Members to this Campaign
+  = form_for [@campaign, @member] do |f|
+    .pt-8
+      = f.text_field :first_name, required: true, :placeholder => "First Name"
+    .pt-4
+      = f.text_field :last_name, required: true, :placeholder => "Last Name"
+    .pt-4
+      = f.email_field :email, required: true, :placeholder => "Email"
+    .pt-8.justify-between
+      = f.submit "Create Member", class:"w-full"

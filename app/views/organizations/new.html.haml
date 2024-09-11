@@ -1,0 +1,6 @@
+= content_for :sidebar do
+  = render '/layouts/organizer_signup_section1'
+.px-20.pt-10
+  .pt-10.pb-2.text-xl.font-bold
+    Create an Organization
+  = render 'form', organization: @organization

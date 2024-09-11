@@ -1,0 +1,17 @@
+- if current_user && @campaign_member.in?(current_user.campaign_members)
+  .flex.items-center.gap-x-6.bg-gray-900.px-6.sm:before:flex-1{:class => "py-2.5 sm:px-3.5"}
+    .text-sm.leading-6.text-white
+      = link_to campaign_member_dashboard_path(@campaign_member) do
+        <-- Back to your dashboard
+- if @campaign.coming_soon?
+  - if current_user
+    .flex.items-center.gap-x-6.bg-gray-900.px-6.sm:before:flex-1{:class => "py-2.5 sm:px-3.5"}
+      %p.text-sm.leading-6.text-white
+        %strong.font-semibold This campaign starts on #{@campaign.start_on}. In the meantime, here's a preview of your donation page.
+    = render 'donations'
+  - else
+    = render 'coming_soon'
+- elsif @campaign.complete?
+  = render 'complete'
+- else
+  = render 'donations'

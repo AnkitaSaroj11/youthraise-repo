@@ -1,0 +1,33 @@
+= content_for :sidebar do
+  = render 'layouts/vertical_progress', 
+    steps: {"Sign Up" => {status: "complete", info: "Basic information about you", last: 'no'} ,
+    "Organization Info" => {status: "complete", info: "A few facts about your group", last: 'no'},
+    "Fundraiser Info" => {status: "complete", info: "How much, why, and when you are fundraising", last: 'no'},
+    "Member Info" => {status: "current", info: "Who is going to help raise money", last: 'yes'}}
+.px-20.pt-20
+  = form_for @import, url: create_trooptrack_import_organizer_signup_path(@campaign) do |f|
+    .pt-4
+      = f.hidden_field :export_uuid, value: @import.export_uuid
+      .p-5
+        = f.check_box :activate_members, checked: 'checked'
+        = f.label :activate_members, "Send a profile activation email to imported members?"
+      .p-5
+        %fieldset.space-y-5
+          %legend Import the following users:
+          - @import.data.each do |k,v|
+            %div{data:{ controller: "checkbox-select-all" } }
+              .relative.flex.items-start
+                .flex.h-5.items-center
+                  = check_box_tag "Select All", 1, false, { data: { checkbox_select_all_target: "parent", action: "change->checkbox-select-all#toggleChildren" }, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" } 
+                  %strong.ml-3.text-small
+                    = label_tag "#{k.capitalize}: Select All / Deselect All"
+            
+              - v.each do |u|
+                .relative.flex.items-start
+                  .flex.h-5.items-center
+                    = f.check_box :user_ids, { multiple: true, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500", data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" } }, u['id'], nil
+                    .ml-3.text-sm
+                      = f.label :user_ids, "#{u["first_name"]} #{u["last_name"]}"
+    .pt-8
+      = f.submit "Continue"
+

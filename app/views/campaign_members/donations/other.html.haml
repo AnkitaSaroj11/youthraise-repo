@@ -1,0 +1,9 @@
+.pt-1
+  = form_with model: @supporter, url: campaign_member_payments_path(@campaign_member.uuid), method: :post, data: {turbo: false} do |f|
+    %div
+      - if @supporter.persisted?
+        = f.hidden_field :uuid, value: @supporter.uuid
+    %div
+      = f.hidden_field :stripe_price_id, value: payment_option.stripe_price_id
+    %div
+      = f.submit number_to_currency(payment_option.amount)

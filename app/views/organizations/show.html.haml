@@ -1,0 +1,20 @@
+.px-10.pt-10
+  .overflow-hidden.bg-white.shadow.sm:rounded-lg
+    .px-4.py-5.sm:px-6
+      %h3.text-lg.font-medium.leading-6.text-gray-900 #{@organization.name}
+    .border-t.border-gray-200.px-4.py-5.sm:p-0
+      %dl.sm:divide-y.sm:divide-gray-200
+        .py-4.sm:grid.sm:grid-cols-3.sm:gap-4.sm:py-5.sm:px-6
+          %dt.text-sm.font-medium.text-gray-500 Campaigns
+          %dd.mt-1.text-sm.text-gray-900.sm:col-span-2.sm:mt-0
+            %ul.list-disc
+              = render partial: 'campaign', collection: @campaigns
+            .pt-3
+              = link_to "Start a Campaign", new_organization_member_path(@organization), class: "inline-flex items-center rounded-md border border-indigo-300 px-3 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
+        .py-4.sm:grid.sm:grid-cols-3.sm:gap-4.sm:py-5.sm:px-6
+          %dt.text-sm.font-medium.text-gray-500 Members
+          %dd.mt-1.text-sm.text-gray-900.sm:col-span-2.sm:mt-0
+            %ul.list-disc
+              = render partial: 'member', collection: @members
+            .pt-3
+              = link_to "Manage Members", organization_members_path(@organization), class: "inline-flex items-center rounded-md border border-indigo-300 px-3 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"

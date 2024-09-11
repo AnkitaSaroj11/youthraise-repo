@@ -1,0 +1,24 @@
+%li
+  %a.block.hover:bg-gray-50{:href => "#"}
+    .flex.items-center.px-4.py-4.sm:px-6
+      .flex.min-w-0.flex-1.items-center
+        .flex-shrink-0
+          -# %img.h-12.w-12.rounded-full{:alt => "", :src => "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"}/
+        .min-w-0.flex-1.px-4.md:grid.md:grid-cols-2.md:gap-4
+          %div
+            %p.truncate.text-sm.font-medium.text-indigo-600= export.status
+            %p.mt-2.flex.items-center.text-sm.text-gray-500
+              %span.truncate Created at #{export.created_at}
+          .hidden.md:block
+            %div
+              - if export.members_csv.attached?
+                %p.mt-2.flex.items-center.text-sm.text-gray-500
+                  %svg.h-5.w-5.flex-shrink-0.text-green-400{"aria-hidden" => "true", :class => "mr-1.5", :fill => "currentColor", :viewbox => "0 0 20 20"}
+                    %path{"clip-rule" => "evenodd", :d => "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z", "fill-rule" => "evenodd"}
+                  = link_to "members.csv", export.members_csv.url
+              - if export.supporters_csv.attached?
+                %p.mt-2.flex.items-center.text-sm.text-gray-500
+                  %svg.h-5.w-5.flex-shrink-0.text-green-400{"aria-hidden" => "true", :class => "mr-1.5", :fill => "currentColor", :viewbox => "0 0 20 20"}
+                    %path{"clip-rule" => "evenodd", :d => "M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z", "fill-rule" => "evenodd"}
+                  = link_to "supporters.csv", export.supporters_csv.url
+      

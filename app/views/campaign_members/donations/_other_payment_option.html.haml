@@ -1,0 +1,9 @@
+.pt-2
+  = form_with model: @supporter, url: campaign_member_payments_path(@campaign_member.uuid), method: :post, data: {turbo: false} do |f|
+    - if @supporter.persisted?
+      = f.hidden_field :uuid, value: @supporter.uuid
+    .flex
+      %div= f.hidden_field :stripe_price_id, value: payment_option.stripe_price_id
+      %div= f.money_field :quantity, {label: {text: "Other Amount"}, required: true, placeholder: 'Other Amount'}
+    .pl-1.pt-3
+      = f.submit "Pay"

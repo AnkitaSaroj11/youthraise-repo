@@ -1,0 +1,19 @@
+!!!
+
+%html
+  %head
+    = render 'layouts/google_tag'
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    = favicon_link_tag 'logos/favicon.ico', rel: 'icon', type: ''
+    %title YouthRaise
+    %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
+    - unless @disable_termly.present?
+      = render 'layouts/termly'
+    = csrf_meta_tags
+    = csp_meta_tag
+    = render 'layouts/social_meta_tag'
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body
+    =yield
+  = render 'layouts/footer'

@@ -1,0 +1,9 @@
+%div{data: {controller: 'modal-spinner'}}
+  .px-20.pt-20
+    = form_with model: @campaign_member, url: campaign_member_dashboard_path(@campaign_member), data: {action: 'modal-spinner#open'} do |f|
+      .pt-4
+        = f.number_field :goal, required: true
+        = f.hidden_field :goal_accepted_on, value: Date.today
+      .pt-8
+        = f.submit "Update Campaign Member"
+  = render "layouts/modal_spinner", title: "Working...", closable: false, message: "Our Chatbot is generating three custom emails for you to choose from for inviting friends and family to contribute to your fundraiser. It just takes a moment."

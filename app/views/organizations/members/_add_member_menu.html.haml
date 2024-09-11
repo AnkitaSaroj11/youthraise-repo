@@ -1,0 +1,18 @@
+.py-4{data: {controller: 'dropdown'}}
+  .select-none{ data: { action: "click->dropdown#toggle click@window->dropdown#hide", dropdown_target: "button" }, role: "button", tabindex: "0"}
+    %button.inline-flex.items-center.rounded-full.border.border-transparent.bg-indigo-600.p-2.text-white.shadow-sm.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.focus:ring-offset-2{:type => "button"}
+      %svg.h-6.w-6{"aria-hidden" => "true", :fill => "none", :stroke => "currentColor", "stroke-width" => "1.5", :viewbox => "0 0 24 24"}
+        %path{:d => "M12 4.5v15m7.5-7.5h-15", "stroke-linecap" => "round", "stroke-linejoin" => "round"}
+    
+  .hidden.absolute.z-10.mt-3.max-w-xs.transform.px-2.sm:px-0{data: { dropdown_target: "menu" }, class: "w-screen -translate-x-3/4"}
+    .overflow-hidden.rounded-lg.shadow-lg.ring-1.ring-black.ring-opacity-5
+      .relative.grid.gap-6.bg-white.px-5.py-6.sm:gap-8.sm:p-8
+        %p.text-base.font-medium.text-gray-900 Import from a CSV File
+        %p.mt-1.text-sm.text-gray-500 For member lists in a spreadsheet
+        = link_to @trooptrack, class: "-m-3 block rounded-md p-3 transition duration-150 ease-in-out hover:bg-gray-50" do
+          %p.text-base.font-medium.text-gray-900 Import from TroopTrack
+          %p.mt-1.text-sm.text-gray-500 For customers with a TroopTrack account
+        = link_to new_organization_member_path(@organization), class: "-m-3 block rounded-md p-3 transition duration-150 ease-in-out hover:bg-gray-50" do
+          %p.text-base.font-medium.text-gray-900 Add Manually
+          %p.mt-1.text-sm.text-gray-500 For adding a member by hand
+        

@@ -1,0 +1,10 @@
+.bg-white
+  %main
+    = render 'header', organization: @campaign_member.organization, campaign_member: @campaign_member
+    - if @campaign.goal_oriented?
+      #goal= render 'goal', campaign_member: @campaign_member, organization: @campaign_member.organization
+    #purpose= render 'purpose'
+    #donate= render 'donate', donor_levels: @campaign.donor_levels.order(@campaign.sort_order_string)
+    #wall
+      = render 'wall', organization: @campaign_member.organization, payments: @campaign.payments.order(:amount)
+    

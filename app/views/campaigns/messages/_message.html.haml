@@ -1,0 +1,12 @@
+%tr
+  %td.px-3.py-4.text-sm.text-gray-500.lg:table-cell
+    = message.user.name
+  %td.px-3.py-4.text-sm.text-gray-500.lg:table-cell
+    = message.subject
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = message.body
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = message.sent_on&.to_s || "Pending Delivery"
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = message.texts_used
+  

@@ -1,0 +1,10 @@
+%p
+  Dear #{@campaign_member.name_or_email},
+%p
+  Congratulations! A donation has just been made to your fundraiser!
+%dl
+  %dt #{@payment.supporter.name} donated #{number_to_currency @payment.amount}
+  %dt Your Goal Progress
+  %dd #{number_to_currency(@campaign_member.amount_raised)}/#{number_to_currency(@campaign_member.goal)}
+  %dt Fundraiser Goal Progress
+  %dd #{number_to_currency(@campaign.gross_amount_raised)}/#{number_to_currency(@campaign.goal)}

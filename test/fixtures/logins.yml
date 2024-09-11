@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  uuid: MyString
+  expires_at: 2023-01-27 21:01:21
+
+two:
+  email: MyString
+  uuid: MyString
+  expires_at: 2023-01-27 21:01:21

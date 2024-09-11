@@ -1,0 +1,15 @@
+%div{data: {controller: 'modal-spinner'}}
+  .relative.px-6.lg:px-8
+    .mx-auto.max-w-2xl.py-32.sm:py-48.lg:py-56
+      .text-center
+        %h1.text-4xl.font-bold.tracking-tight.text-gray-900.sm:text-4xl Welcome to YouthRaise.com
+        %p.mt-6.text-lg.leading-8.text-gray-600 
+          It only takes a few minutes to create your YouthRaise profile. Once that's complete, you will have a custom donation
+          page to share with friends and family to encourage them to support this important fundraiser.
+        .mt-10.flex.items-center.justify-center.gap-x-6
+          = form_with model: @campaign_member, url: campaign_member_dashboard_path(@campaign_member), data: {action: 'modal-spinner#open'} do |f|
+            = f.hidden_field :signup_started_on, value: Date.today
+            = f.submit "Let's Do It"
+  - if @campaign_member.personal_messages.empty?
+    = render "layouts/modal_spinner", title: "Working...", closable: false, message: "Our Chatbot is generating a custom messages for you to use to promote this fundraiser. It just takes a moment."
+        

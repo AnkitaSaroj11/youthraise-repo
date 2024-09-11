@@ -1,0 +1,14 @@
+%tr
+  %td.px-3.py-4.text-sm.text-gray-500.lg:table-cell
+    = group.name
+  %td.px-3.py-4.text-sm.text-gray-500.lg:table-cell
+    = number_to_currency group.goal
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = number_to_currency group.amount_raised
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = group.campaign_members.count
+  %td.px-3.py-4.text-sm.text-gray-500.sm:table-cell
+    = link_to edit_campaign_group_path(@campaign, group) do
+      %i.fa-solid.fa-edit
+    = link_to campaign_group_path(@campaign, group) do
+      %i.fa-solid.fa-eye

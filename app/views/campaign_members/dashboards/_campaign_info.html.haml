@@ -1,0 +1,18 @@
+%div
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    - unless @campaign.end_on.blank?
+      .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+        %dt.truncate.text-xl.font-medium.text-slate-400 Time Remaining
+        %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{distance_of_time_in_words_to_now(@campaign.end_on)}
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+      %dt.truncate.text-xl.font-medium.text-slate-400 Amount Raised/Your Goal
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{number_to_currency @campaign_member.amount_raised}/#{number_to_currency @campaign_member.goal}
+.px-8.pt-20
+  - if @campaign_member.admin?
+    = link_to "Campaign Dashboard", campaign_path(@campaign_member.campaign), class: "bg-indigo-400 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 cursor-pointer"
+%div
+  .flow-root.p-5
+    %ul.-mb-8{:role => "list"}
+      = render partial: '/campaign_members/dashboards/payment', collection: @campaign_member.payments
+  

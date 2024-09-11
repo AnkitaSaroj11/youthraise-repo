@@ -1,0 +1,5 @@
+= javascript_include_tag "piechart"
+/ component
+%canvas.Piechart.p-1.ml-5.mr-5.h-20.w-24{"data-goal" => member.goal, "data-amount_raised" => member.amount_raised, "data-member_id" => member.id, id: member.id}
+/ Required chart.js
+%script{src: "https://cdn.jsdelivr.net/npm/chart.js"}

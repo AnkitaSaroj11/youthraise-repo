@@ -1,0 +1,23 @@
+= form_for [campaign, donor_level] do |f|
+  .pt-8
+    = f.text_field :name, required: true, :placeholder => "Sponsor, Platinum, Elite, etc", label: {text: "Title or Level for Sponsors of this Amount"}
+  .pt-4
+    = f.text_area :description, required: true, rows: 4, :placeholder => "Large donations go towards helping multiple kids!"
+  .pt-4
+    = f.money_field :amount, required: true, :placeholder => "Amount", label: {text: "Contribution Amount"}
+  .pt-4
+    = f.label :has_perk, "Is a perk available for this donor level?"
+    = f.check_box :has_perk
+  .pt-4
+    = f.text_area :perk, rows: 4, :placeholder => "Two free tickets to the spaghetti dinner"
+  .pt-4
+    = f.label :perk_image, "Select an Image for Your Perk"
+  .text-gray-500
+    A square image will look best
+  %div
+    = f.file_field :perk_image
+  .pt-4
+    = f.label :remove_perk_image, "Remove perk image"
+    = f.check_box :remove_perk_image
+  .pt-8.justify-between
+    = f.submit "Save", class:"w-full"

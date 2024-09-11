@@ -1,0 +1,6 @@
+- if @campaign.coming_soon?
+  = render 'coming_soon'
+- elsif @campaign.complete?
+  = render 'complete'
+- else
+  = render 'donations'

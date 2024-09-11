@@ -1,0 +1,11 @@
+.flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:py-3.sm:px-6.lg:px-8.bg-white
+  .mt-5.sm:mx-auto.sm:w-full.sm:max-w-md.p-8.sm:p-1{data: {controller: 'modal-spinner'}}
+    - if Rails.env.development?
+      .mb-4= @login.confirmation_code
+    = form_for @login, url: update_activation_campaign_member_path(@campaign_member.uuid), data: {action: 'modal-spinner#open'} do |f|
+      = f.hidden_field :uuid, value: @login.uuid
+      .pt-4
+        = f.text_field :confirmation_code_attempt, required: true, label: {text: "Confirmation Code"}
+      .pt-8
+        = f.submit "Update Login", class: "w-full"
+    = render 'layouts/modal_spinner', title: "Our Gears are Spinning!", message: "We are using a chat bot to generate three personal messages for you to choose from to share with your supporters. It will only take a moment. Please hold tight!"

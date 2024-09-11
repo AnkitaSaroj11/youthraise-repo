@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 1
+  user_id: 1
+  goal: 1
+  actuals: 1
+  name: MyString
+  description: MyText
+  start_on: 2022-12-27
+  end_on: 2022-12-27
+
+two:
+  organization_id: 1
+  user_id: 1
+  goal: 1
+  actuals: 1
+  name: MyString
+  description: MyText
+  start_on: 2022-12-27
+  end_on: 2022-12-27

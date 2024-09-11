@@ -1,0 +1,35 @@
+.p-4
+  %main.relative.flex-1.overflow-y-auto.focus:outline-none.xl:order-last
+    %div
+      - if @campaign_member.campaign.banner_image.attached?
+        = image_tag @campaign_member.campaign.banner_image, class: "h-32 w-full object-cover lg:h-48"
+      - else
+        %img.h-32.w-full.object-cover.lg:h-48{alt: "", src: "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"}/
+      
+    .mx-auto.max-w-5xl.px-4.sm:px-6.lg:px-8
+      .-mt-12.sm:-mt-20.sm:flex.sm:items-end.sm:space-x-5
+        .flex
+          .h-24.w-24.rounded-full.sm:h-28.sm:w-28
+            %div.absolute.relative{ data: {controller: 'profile-modal'}}
+              %div.absolute.inset-y-0.right-0.h-full
+                %button.text-sm.font-bold.text-white.bg-indigo-900.rounded-full{class: "gap-x-1.5 w-full", "aria-expanded" => "false", "aria-haspopup" => "true", :type => "button", data: {action: 'profile-modal#open'}}
+                  %i.p-2.fa-solid.fa-edit
+                = render 'profile_modal', campaign_member: @campaign_member    
+            - if current_user.avatar.attached?
+              = image_tag current_user.avatar, class: 'h-24 w-24 rounded-full sm:h-28 sm:w-28'
+            - else
+              = image_tag('logos/avtar.jpg', alt: 'Profile Photo')
+    .mt-3.md:flex.sm:min-w-0.sm:flex-1.sm:items-center.sm:justify-end.sm:space-x-6.sm:pb-1
+      .mt-6.min-w-0.flex-1.sm:hidden.2xl:block
+        %h1.truncate.text-sm.font-bold.text-gray-900 #{@campaign_member.campaign.name}
+
+    = render 'share_menu'          
+
+    .text-sm.font-medium.text-gray-500 
+      Your Personal Message
+      = link_to edit_personal_message_campaign_member_path(@campaign_member, personal_message_id: @campaign_member.selected_personal_message_id) do
+        %i.fa-solid.fa-edit
+    .mt-1.text-sm.text-gray-900
+      = @campaign_member.personal_message
+        
+    = render 'supporters', campaign_member: @campaign_member

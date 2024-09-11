@@ -1,0 +1,8 @@
+.mx-auto.mt-6.sm:mt-14.max-w-5xl.px-4.sm:px-6.lg:px-8
+  .grid.grid-cols-1.sm:gap-x-4.sm:gap-y-8.sm:grid-cols-3
+    .sm:col-span-2
+      %h2.text-sm.font-medium.text-gray-500 Your Supporters
+    .mt-3.sm:mt-0.sm:col-span-1
+      .text-indigo-900.text-sm.font-medium= link_to "Email a potential supporter", new_campaign_member_supporter_path(@campaign_member)
+  .mt-5.grid.grid-cols-1.gap-4.sm:grid-cols-2
+    = render partial: 'supporter', collection: campaign_member.supporters.order(name: :asc), locals: {campaign_member: campaign_member}

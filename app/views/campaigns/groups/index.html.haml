@@ -1,0 +1,24 @@
+= content_for :sidebar do
+  = render '/campaigns/sidebar', campaign: @campaign
+= render '/campaigns/alerts', campaign: @campaign
+= render '/campaigns/header', campaign: @campaign
+.px-4.sm:px-6.lg:px-8.mt-8
+  .sm:flex.sm:items-center
+    .sm:flex-auto
+      %h1.text-base.font-semibold.leading-6.text-gray-900 
+        Groups
+    .mt-4.sm:mt-0.sm:ml-16.sm:flex-none
+      = link_to "Create Group", new_campaign_group_path(@campaign), data: {'turbo-frame': "groups"}, class: "block rounded-md bg-indigo-600 py-2 px-3 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", type: "button"
+  = turbo_frame_tag "groups" do
+    .px-4.sm:px-6.lg:px-8
+      .-mx-4.mt-8.sm:-mx-0
+        %table.min-w-full.divide-y.divide-gray-300
+          %thead
+            %tr
+              %th.px-3.text-left.text-sm.font-semibold.text-gray-900{:class => "py-3.5", :scope => "col"} Name
+              %th.px-3.text-left.text-sm.font-semibold.text-gray-900{:class => "py-3.5", :scope => "col"} Goal
+              %th.px-3.text-left.text-sm.font-semibold.text-gray-900{:class => "py-3.5", :scope => "col"} Progress
+              %th.px-3.text-left.text-sm.font-semibold.text-gray-900{:class => "py-3.5", :scope => "col"} Members
+              %th.px-3.text-left.text-sm.font-semibold.text-gray-900{:class => "py-3.5", :scope => "col"}
+          %tbody.divide-y.divide-gray-200.bg-white
+            = render @groups

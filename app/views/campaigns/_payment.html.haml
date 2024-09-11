@@ -1,0 +1,7 @@
+.flex.space-x-3
+  %i.h-6.w-6.rounded-full.fa-solid.fa-sack-dollar.text-white
+  .flex-1.space-y-1
+    .flex.items-center.justify-between
+      %h3.text-sm.font-medium.text-white #{payment.supporter.name}
+      %p.text-sm.text-white= distance_of_time_in_words_to_now(payment.created_at)
+    %p.text-sm.text-gray-100 Donated #{number_to_currency(payment.amount)}

@@ -1,0 +1,59 @@
+= content_for :full_screen do
+  .px-10.sm:px-40.pt-20
+    .isolate.overflow-hidden.rounded-xl
+      .bg-indigo-200
+        .text-xl.font-semibold.leading-5.text-black.p-5
+          Edit Your Text Preferences
+      .bg-indigo-50
+        = form_for current_user, url: text_preferences_path do |f|
+          .p-5
+            = f.telephone_field :mobile, required: "true", autofocus: "true", class: "w-3/4"
+            
+          = fields_for :text_preferences do |tpf|
+            .p-5       
+              %fieldset
+                %legend
+                  Please send me text messages for the following:
+                .space-y-5
+                  %div{data:{ controller: "checkbox-select-all" } }
+                    .relative.flex.items-start.py-3
+                      %label.bg-gray-200.cursor-pointer.relative.w-11.h-6.rounded-full
+                        = check_box_tag "Select All", 1, false, { data: { checkbox_select_all_target: "parent", action: "change->checkbox-select-all#toggleChildren" }, class: 'sr-only peer' }
+                        %span.bg-white.border.border-transparent.absolute.rounded-full.left-1.top-1.peer-checked:bg-indigo-600.peer-checked:left-6.transition-all.duration-500.w-4.h-4
+                      .ml-3.min-w-0.flex-1.text-sm
+                        .font-medium.leading-6.text-gray-700
+                          = label_tag "Select All / Deselect All"
+
+                    .relative.flex.items-start.py-3
+                      %label.bg-gray-200.cursor-pointer.relative.w-11.h-6.rounded-full
+                        = tpf.check_box :donations, { checked: (current_user.wants_donation_texts?), data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" }, class: 'sr-only peer' }
+                        %span.bg-white.border.border-transparent.absolute.rounded-full.left-1.top-1.peer-checked:bg-indigo-600.peer-checked:left-6.transition-all.duration-500.w-4.h-4
+                      .ml-3.min-w-0.flex-1.text-sm
+                        .font-medium.leading-6.text-gray-700
+                          = tpf.label :donations, "New donations"
+
+                    .relative.flex.items-start.py-3
+                      %label.bg-gray-200.cursor-pointer.relative.w-11.h-6.rounded-full
+                        = tpf.check_box :member_activity, { checked: (current_user.wants_member_activity_texts?), data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" }, class: 'sr-only peer' }
+                        %span.bg-white.border.border-transparent.absolute.rounded-full.left-1.top-1.peer-checked:bg-indigo-600.peer-checked:left-6.transition-all.duration-500.w-4.h-4
+                      .ml-3.min-w-0.flex-1.text-sm
+                        .font-medium.leading-6.text-gray-700
+                          = tpf.label :member_activity, "Member activity"
+
+                    .relative.flex.items-start.py-3
+                      %label.bg-gray-200.cursor-pointer.relative.w-11.h-6.rounded-full
+                        = tpf.check_box :summary, { checked: (current_user.wants_donation_texts?), data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" }, class: 'sr-only peer' }
+                        %span.bg-white.border.border-transparent.absolute.rounded-full.left-1.top-1.peer-checked:bg-indigo-600.peer-checked:left-6.transition-all.duration-500.w-4.h-4
+                      .ml-3.min-w-0.flex-1.text-sm
+                        .font-medium.leading-6.text-gray-700
+                          = tpf.label :summary, "Summary info"
+
+                    .relative.flex.items-start.py-3
+                      %label.bg-gray-200.cursor-pointer.relative.w-11.h-6.rounded-full
+                        = tpf.check_box :tips, { checked: (current_user.wants_donation_texts?), data: { checkbox_select_all_target: "child", action: "change->checkbox-select-all#toggleParent" }, class: 'sr-only peer' }
+                        %span.bg-white.border.border-transparent.absolute.rounded-full.left-1.top-1.peer-checked:bg-indigo-600.peer-checked:left-6.transition-all.duration-500.w-4.h-4
+                      .ml-3.min-w-0.flex-1.text-sm
+                        .font-medium.leading-6.text-gray-700
+                          = tpf.label :tips, "Tips & techniques"
+          .p-5
+            = f.submit "Save Preferences"

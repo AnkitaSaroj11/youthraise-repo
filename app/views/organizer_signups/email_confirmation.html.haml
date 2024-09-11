@@ -1,0 +1,20 @@
+= content_for :sidebar do
+  = render 'layouts/vertical_progress', 
+    steps: {"Sign Up" => {status: "current", info: "Basic information about you", last: 'no'} ,
+    "Organization Info" => {status: "incomplete", info: "A few facts about your group", last: 'no'},
+    "Fundraiser Info" => {status: "incomplete", info: "How much, why, and when you are fundraising", last: 'yes'}}
+.flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:py-3.sm:px-6.lg:px-8.bg-white
+  .sm:mx-auto.sm:w-full.sm:max-w-md
+    = image_tag('logos/favicon.png', alt: 'YouthRaise logo', class: 'mx-auto h-10 w-auto')
+    %h2.mt-4.text-center.text-2xl.font-bold.tracking-tight.text-gray-900 Sign Up
+    %p.mt-2.text-center.text-sm.text-gray-800
+      Already a member?
+      = link_to "Log in", new_login_path, class: "text-indigo-900"
+  .mt-5.sm:mx-auto.sm:w-full.sm:max-w-md.p-8.sm:p-1
+    - if Rails.env.development?
+      .mb-4= @login.confirmation_code
+    = form_for @login, url: update_email_confirmation_organizer_signup_path(@login.uuid) do |f|
+      %div
+        = f.text_field :confirmation_code_attempt, required: true, autofocus: true, label: {text: "Confirmation Code"}
+      .pt-8
+        = f.submit "Submit", class: "w-full"

@@ -1,0 +1,18 @@
+.bg-gray-900.py-24.sm:py-32
+  .mx-auto.max-w-7xl.px-6.lg:px-8
+    .mx-auto.max-w-2xl.lg:text-center
+      %h2.text-base.font-semibold.leading-7.text-indigo-400 Thank You!
+      %p.mt-2.text-3xl.font-bold.tracking-tight.text-white.sm:text-4xl Your generous contribution makes a difference!
+      %p.mt-6.text-lg.leading-8.text-gray-300
+        = @payment.campaign_member.personal_message
+    .mx-auto.mt-16.max-w-2xl.sm:mt-20.lg:mt-24.border.rounded-lg.bg-indigo-200.p-4
+      = form_for @payment, url: payment_customization_path do |f|
+        .pt-8
+          = f.text_area :message, rows: 4, label: {text: "Leave a message of support on the campaign board!"}
+        .pt-4
+          = f.select :visibility, 
+            [[@payment.masked_name_preview("full"), "full"], 
+            [@payment.masked_name_preview("first"), "first"], 
+            [@payment.masked_name_preview("anonymous"), "anonymous"]], 
+            label: {text: "How would you like your name to appear on the sponsor board?"}
+        .pt-4= f.submit "Post on #{@payment.campaign_member.organization.name} Sponsor Board"

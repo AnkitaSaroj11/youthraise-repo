@@ -1,0 +1,11 @@
+= content_for :sidebar do
+  = render 'sidebar', campaign: @campaign
+= render 'alerts', campaign: @campaign
+= render 'header', campaign: @campaign
+= render 'self_registration', campaign: @campaign
+%div
+  %h3.text-xl.font-bold.leading-7.text-gray-900.sm:truncate.sm:text-xl.sm:tracking-tight
+    Members
+  .flow-root
+    %ul.divide-y.divide-gray-200{role: "list"}
+      = render partial: 'member', collection: @campaign_members, as: :member

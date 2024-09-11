@@ -1,0 +1,18 @@
+.px-10.sm:px-40.pt-12
+  = form_for [@campaign, @group] do |f|
+    .pt-4.w-96
+      = f.text_field :name, required: true, :placeholder => "Group Name"
+    .pt-4.w-96
+      = f.number_field :goal, required: true, :placeholder => "Group Goal"
+    .pt-4.w-96
+      %fieldset
+        %legend.text-base.font-semibold.leading-6.text-gray-900 Members
+        .mt-4.divide-y.divide-gray-200.border-b.border-t.border-gray-200
+          = f.collection_check_boxes :campaign_member_ids, @campaign.campaign_members, :id, :name_and_group, {} do |b|
+            .relative.flex.items-start.py-4
+              .min-w-0.flex-1.text-sm.leading-6
+                = b.label class: "select-none font-medium text-gray-900"
+              .ml-3.flex.h-6.items-center
+                = b.check_box class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+    .pt-8.justify-between.w-96
+      = f.submit "Save", class:"w-full"

@@ -1,0 +1,19 @@
+= content_for :full_screen do
+  .flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:px-6.lg:px-8.sm:px-6.lg:px-8.bg-white
+    .sm:mx-auto.sm:w-full.sm:max-w-md
+      = image_tag('logos/favicon.png', alt: 'YouthRaise logo', class: 'mx-auto h-10 w-auto')
+      %h2.mt-4.text-center.text-2xl.font-bold.tracking-tight.text-gray-900 Sign in to your account
+      %p.mt-2.text-center.text-sm.text-gray-800
+        New to Youthraise?
+        = link_to "Sign up", new_organizer_signup_path, class: "text-indigo-900"
+    .mt-5.sm:mx-auto.w-full.sm:w-full.sm:max-w-md.p-8.sm:p-1
+      = form_for @login do |f|
+        %div
+          - if @email_signup
+            = f.email_field :email, required: true, :placeholder => "Email"  
+            = link_to "Log in with your phone instead", new_login_path, class: "text-sm text-indigo-900"
+          - else
+            = f.phone_field :mobile, required: true
+            = link_to "Log in with your email instead", new_login_path(email_signup: 'y'), class: "text-sm text-indigo-900"
+        .pt-9
+          = f.submit "Login", class: "w-full"

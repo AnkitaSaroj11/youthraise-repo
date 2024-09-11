@@ -1,0 +1,24 @@
+= content_for :sidebar do
+  = render 'layouts/vertical_progress', 
+    steps: {"Sign Up" => {status: "complete", info: "Basic information about you", last: 'no'} ,
+    "Organization Info" => {status: "current", info: "A few facts about your group", last: 'no'},
+    "Fundraiser Info" => {status: "incomplete", info: "How much, why, and when you are fundraising", last: 'yes'}}
+.flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:py-3.sm:px-6.lg:px-8.bg-white
+  .mt-5.sm:mx-auto.w-full.sm:w-full.sm:max-w-md.p-8.sm:p-1
+    = form_for @campaign, url: update_organization_organizer_signup_path(@campaign) do |f|
+      = f.fields_for :organization do |of|
+        %div
+          = of.text_field :name, required: true, autofocus: true, label: { text: "What is the name of your organization?" }
+        .pt-4
+          = of.text_field :affiliation, label: { text: "If you are affiliated with another organization (BSA, a public school, etc), what is it's name?"}
+        .pt-8
+          = of.label :avatar
+        .pt-2
+          = of.file_field :avatar
+      = fields_for :campaign_member do |uf|
+        .pt-4
+          = uf.text_field :organization_role, required: true, :placeholder => "Treasurer, Director, Scoutmaster, etc", label: { text: "What is your role in the organization?" }
+      .pt-4 
+        = f.text_area :purpose, required: true, rows: "5", :placeholder => "example: Pay for travel and food for a camping trip in the Olympic mountains", label: { text:  "What will your organization do with the money you raise?" }
+      .pt-8
+        = f.submit "Continue", class: "w-full"

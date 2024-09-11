@@ -1,0 +1,15 @@
+= form_with model: supporter, url: form_path do |f|
+  - if supporter.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(supporter.errors.count, "error")
+        prohibited this from being saved:
+      %ul
+        - supporter.errors.each do |error|
+          %li= error.full_message
+  .pt-8
+    = f.text_field :name, required: true, autofocus: true
+  .pt-4
+    = f.email_field :email, required: true
+  .pt-8
+    = f.submit "Create Supporter", class: "w-full"

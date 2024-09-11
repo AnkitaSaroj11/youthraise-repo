@@ -1,0 +1,8 @@
+= content_for :sidebar do
+  = render '/campaigns/sidebar', campaign: @campaign
+= render '/campaigns/alerts', campaign: @campaign
+= render '/campaigns/header', campaign: @campaign
+.px-10
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    Edit this Campaign
+  = render "form", campaign: @campaign, organization: @organization

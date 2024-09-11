@@ -1,0 +1,14 @@
+%div
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.sm:p-6
+      %dt.truncate.text-xl.font-medium.text-slate-400 Time Remaining
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{distance_of_time_in_words_to_now(@campaign.end_on)}
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:p-6
+      %dt.truncate.text-xl.font-medium.text-slate-400 Amount Raised/Goal
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{number_to_currency @campaign.gross_amount_raised}/#{number_to_currency @campaign.goal}
+  
+%div
+  %ul.divide-y.divide-gray-200{:role => "list"}
+    %li.py-4
+      = render partial: '/campaign_members/dashboards/payment', collection: @campaign.payments

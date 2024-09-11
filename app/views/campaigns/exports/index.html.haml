@@ -1,0 +1,13 @@
+= content_for :sidebar do
+  = render '/campaigns/sidebar', campaign: @campaign
+= render '/campaigns/alerts', campaign: @campaign
+= render '/campaigns/header', campaign: @campaign
+.px-4.sm:px-6.lg:px-8
+  .sm:flex.sm:items-center
+    .sm:flex-auto
+      %h1.text-base.font-semibold.leading-6.text-gray-900 Your Data Exports
+      %p.mt-2.text-sm.text-gray-700= button_to "Create a new export", campaign_exports_path(@campaign), class: "inline-flex items-center rounded-md border border-indigo-300 px-4 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
+
+.overflow-hidden.bg-white.shadow.sm:rounded-md
+  %ul.divide-y.divide-gray-200{:role => "list"}
+    = render partial: 'export', collection: @exports

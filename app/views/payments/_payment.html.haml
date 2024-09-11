@@ -1,0 +1,19 @@
+%div{data: {controller: 'notifications'}}
+  .pointer-events-none.fixed.inset-0.z-50.flex.items-end.px-4.py-6.sm:items-start.sm:p-6{"aria-live" => "assertive"}
+    .flex.w-full.flex-col.items-center.space-y-4.sm:items-end
+      .hidden.pointer-events-auto.w-full.max-w-sm.overflow-hidden.rounded-lg.bg-white.shadow-lg.ring-1.ring-black.ring-opacity-5{data: { 
+        notifications_target: 'notification',
+        transition_enter: "transform ease-out duration-300 transition",
+        transition_enter_start: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2",
+        transition_enter_end: "translate-y-0 opacity-100 sm:translate-x-0",
+        transition_leave: "transition ease-in duration-100",
+        transition_leave_start: "opacity-100",
+        transition_leave_end: "opacity-0"}}
+        .p-4
+          .flex.items-start
+            .flex-shrink-0
+              %svg.h-6.w-6.text-green-400{"aria-hidden" => "true", :fill => "none", :stroke => "currentColor", "stroke-width" => "1.5", :viewbox => "0 0 24 24"}
+                %path{:d => "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z", "stroke-linecap" => "round", "stroke-linejoin" => "round"}
+            .ml-3.w-0.flex-1{:class => "pt-0.5"}
+              %p.text-sm.font-medium.text-gray-900
+                #{payment.supporter.name} donated #{number_to_currency(payment.amount, precision: 0)} to #{payment.campaign.organization.name}

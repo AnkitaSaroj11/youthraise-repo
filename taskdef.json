@@ -1,0 +1,96 @@
+{
+    "family": "youthraise-app-td",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+      "EC2"
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+      "EXTERNAL",
+      "EC2"
+    ],
+    "requiresAttributes": [
+      {
+        "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+      },
+      {
+        "name": "ecs.capability.execution-role-awslogs"
+      },      
+      {
+        "name": "com.amazonaws.ecs.capability.ecr-auth"
+      },
+      {
+        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+      },
+      {
+        "name": "ecs.capability.execution-role-ecr-pull"
+      },     
+      {
+        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+      },
+      {
+        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+      },     
+      {
+        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+      },
+      {
+        "name": "ecs.capability.task-eni"
+      }, 
+      {
+        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+      },      
+      {
+        "name": "com.amazonaws.ecs.capability.task-iam-role"
+      }
+    ],  
+    "containerDefinitions": [ 
+      {
+        "name": "app",
+        "image": "<IMAGE1_NAME>",
+        "essential": true,
+        "environment": [
+        {
+          "name": "DATABASE_PASS",
+          "value": "otgQEZsBdrPgmhCEaZIH"
+        },
+        {
+          "name": "RACK_ENV",
+          "value": "production"
+        },
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        { 
+          "name": "DATBASE_NAME",
+          "value": "youthraise_db"
+        },
+        {
+          "name": "DATABASE_HOST",
+          "value": "youthraise-postgres-db.c2pu8lf1kham.us-east-1.rds.amazonaws.com"
+        },
+        {
+          "name": "DATABASE_USER",
+          "value": "postgres"
+        }
+        ],
+        "hostname": "youthraiseapp",
+        "command": [],
+        "portMappings": [
+          {
+            "containerPort": 80,
+            "hostPort": 80,
+            "protocol": "tcp"
+          }
+        ],
+        "logConfiguration": {
+           "logDriver": "awslogs",
+              "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/youthraise-app-td",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+      }

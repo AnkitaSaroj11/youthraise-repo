@@ -1,0 +1,30 @@
+%div
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+      %dt.truncate.text-xl.font-medium.text-white
+        = link_to @campaign.name, campaign_path(@campaign)
+  - unless @campaign.end_on.nil?
+    %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+      .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+        %dt.truncate.text-xl.font-medium.text-slate-400 Time Remaining
+        %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{distance_of_time_in_words_to_now(@campaign.end_on)}
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+      %dt.truncate.text-xl.font-medium.text-slate-400 Gross Amount Raised
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{number_to_currency @campaign.gross_amount_raised}/#{number_to_currency @campaign.goal}
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+      %dt.truncate.text-xl.font-medium.text-slate-400 Net Amount Raised
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white #{number_to_currency @campaign.net_amount_raised}/#{number_to_currency @campaign.net_goal}
+  %dl.mt-5.grid.grid-cols-1.gap-5.sm:grid-cols-1
+    .overflow-hidden.px-8.py-5.shadow.sm:px-10.pt-3
+      %dt.truncate.text-xl.font-medium.text-slate-400 Start
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white= @campaign.start_on
+      %dt.truncate.text-xl.font-medium.text-slate-400 End
+      %dd.mt-1.text-lg.font-medium.tracking-tight.text-white= @campaign.end_on
+%div
+  .mt-5
+    .px-10.pt-3.text-slate-400.font-medium.text-xl Recent Donations
+    .flow-root.p-5
+      %ul.-mb-8{:role => "list"}
+        = render partial: '/campaign_members/payments/payment', collection: @campaign.payments

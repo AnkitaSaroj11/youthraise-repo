@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bot_response: 
+  templateable_id: 1
+  templateable_type: MyString
+  body: MyText
+
+two:
+  bot_response: 
+  templateable_id: 1
+  templateable_type: MyString
+  body: MyText

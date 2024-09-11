@@ -1,0 +1,16 @@
+Dear #{@campaign_member.name_or_email},
+
+#{@campaign.organization.name} is partnering with YouthRaise.com to raise money for our organization. 
+Our fundraising campaign will start on #{@campaign.start_on} and end on #{@campaign.end_on}. Every member of 
+#{@campaign.organization.name} can use YouthRaise.com to contribute to our campaign. All you need to do is create a
+member profile and share it with your friends and family on social media, via text message, or by email. It only 
+takes a few minutes to set up your profile! Please use the link below to set up your profile and start helping us raise 
+money today!
+
+= activation_campaign_member_url(@campaign_member.uuid)
+
+This link expires in 7 days.
+
+Thank you for your support,
+
+= @campaign.user.name

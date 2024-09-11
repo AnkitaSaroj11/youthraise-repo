@@ -1,0 +1,11 @@
+Dear #{@supporter.name},
+%p 
+  As a member of #{@campaign_member.campaign.organization.name}, #{@campaign_member.name} is participating in a fundraiser with a goal to raise 
+  #{number_to_currency(@campaign_member.campaign.goal)} by #{@campaign_member.campaign.end_on}. 
+%p
+  To learn more, and to donate if interested, please visit #{link_to "#{@campaign_member.name}'s", campaign_member_donation_url(@campaign_member.uuid, @supporter.uuid)} donation page.
+%blockquote
+  = @campaign_member.personal_message
+  %p
+    Thank you, #{@campaign_member.name}
+= link_to "Please Donate Today", campaign_member_donation_url(@campaign_member.uuid, @supporter.uuid)

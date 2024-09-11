@@ -1,0 +1,27 @@
+.px-20.pt-20
+  .isolate.overflow-hidden.rounded-lg.border.border-slate-200.shadow
+    .border-b.border-gray-200.bg-slate-50.px-4.py-4
+      %u.text-2xl.font-semibold.leading-5.text-indigo-900
+        = link_to "#{@campaign.name} Campaign", campaign_path(@campaign)
+    .border-b.border-gray-200.px-3.py-3
+      .text-xl.font-semibold.leading-5.text-black.px-3.py-4
+        Import Members
+      = form_for [@campaign, @import] do |f|
+        .px-3
+          = f.file_field :file
+          %br
+            .pt-3
+              = f.submit
+    .border-b.border-gray-200.px-3.py-3
+      .flex.flex-wrap.items-center.justify-between.sm:flex-nowrap
+        .text-xl.font-semibold.leading-5.text-black.px-3.py-4
+          Members
+        .float-right.px-4
+          = link_to "Add Member", new_campaign_member_path(@campaign), class: "inline-flex items-center rounded-md border border-indigo-300 px-4 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
+      %ul.pt-2.list-disc
+        = render partial: 'member', collection: @campaign.members, as: :member
+    .px-3.py-3
+      .text-xl.font-semibold.leading-5.text-black.px-3.py-4
+        Non-members
+      %ul.list-disc
+        = render partial: 'non_member', collection: @campaign.non_members, as: :non_member

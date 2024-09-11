@@ -1,0 +1,35 @@
+%li.py-4
+  .flex.items-center.space-x-4
+    .flex-shrink-0
+      = render 'pie_chart', member: member
+    .hidden.sm:flex
+      .min-w-0.flex-1
+        %p.truncate.text-sm.font-medium.text-gray-900
+          = member.name_or_email
+          - if member.admin?
+            (Admin)
+        %p.truncate.text-sm.text-gray-500= member.status
+      %div.ml-5
+        = link_to "Supporter Page", campaign_member_donations_path(member.uuid), class: "inline-flex items-center text-sm font-semibold leading-5 text-gray-700 px-2.5 py-0.5"
+        - if member.user == current_user
+          = link_to "Personal Dashboard", campaign_member_dashboard_path(member), class: "inline-flex items-center text-sm font-semibold leading-5 text-gray-700 px-2.5 py-0.5"
+        - if member.needs_invitation?
+          %div.inline-flex.items-center.text-sm.font-semibold.leading-5.text-indigo-700.px-2.5.py-0.5
+            = button_to "Send Profile Activation Email", send_activation_email_campaign_member_path(@campaign, member), method: :put
+        - if member.deletable? && member.user != current_user
+          %div.inline-flex.items-center.text-sm.font-semibold.leading-5.text-red-700.px-2.5.py-0.5
+            = button_to "Remove from Campaign", campaign_member_path(@campaign, member), method: :delete
+        %div.inline-flex.items-center.text-sm.font-semibold.leading-5.text-red-700.px-2.5.py-0.5
+          = link_to "Edit", [:edit, @campaign, member]
+          
+    .sm:hidden.min-w-0.flex-1
+      %p.truncate.text-sm.font-medium.text-gray-900
+        = member.name_or_email
+        - if member.admin?
+          (Admin)
+      %p.truncate.text-sm.text-gray-500= member.status
+    .sm:hidden.col-span-1.py-3.sm:py-0
+      %div{ data: {controller: 'member-modal'}}
+        %button.inline-flex.items-center.rounded-md.p-2.border.border-gray-300.bg-white.text-sm.font-medium.leading-5.text-gray-700.shadow-sm.hover:bg-gray-50{type: "button", data: {action: 'member-modal#open'}}
+          View
+        = render 'member_modal', member: member

@@ -1,0 +1,20 @@
+- payment = campaign_member.payments.where(supporter_id: supporter.id).first
+.relative.flex.items-center.space-x-3.rounded-lg.border.border-gray-300.bg-white.px-5.py-5.shadow-sm.focus-within:ring-2.focus-within:ring-pink-500.focus-within:ring-offset-2.hover:border-gray-400
+  .min-w-0.flex-1
+    .grid.grid-cols-1.sm:gap-x-4.sm:gap-y-8.sm:grid-cols-2
+      .text-sm.font-medium.text-gray-900
+        = supporter.name
+      .text-sm.text-gray-500
+        = supporter.email
+    - if payment.nil?
+      %div
+        .grid.grid-cols-1.sm:gap-x-4.sm:gap-y-8.sm:grid-cols-2
+          .text-sm.text-gray-900.mt-2
+            Hasn't donated yet
+          .flex.items-center.text-sm.text-gray-500
+            #{supporter.delivery_attempts.count}/5 emails sent
+    - else
+      %div
+        .text-sm.text-gray-900
+          Donated #{number_to_currency(payment.amount, precision: 2)} on
+          %time{:datetime => payment.paid_on }= payment.paid_on

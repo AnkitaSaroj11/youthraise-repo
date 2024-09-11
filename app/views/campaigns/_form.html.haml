@@ -1,0 +1,28 @@
+= form_for([organization, campaign]) do |form|
+  - if campaign.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(campaign.errors.count, "error")
+        prohibited this campaign from being saved:
+      %ul
+        - campaign.errors.each do |error|
+          %li= error.full_message
+
+  .pt-8
+    = form.text_field :name
+  .pt-4
+    = form.number_field :goal
+  .pt-4
+    = form.number_field :individual_goal
+  .pt-4
+    = form.text_area :purpose
+  .pt-4
+    = form.date_field :start_on
+  .pt-4
+    = form.date_field :end_on
+  .pt-8
+    = form.label :banner_image, class: 'font-sans font-semibold text-slate-500'
+  .pt-4
+    = form.file_field :banner_image
+  .pt-8
+    = form.submit

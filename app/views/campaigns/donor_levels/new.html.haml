@@ -1,0 +1,5 @@
+.px-10.sm:px-40.pt-12
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    Add a donor level to this campaign
+  = turbo_frame_tag "donor_levels" do
+    = render 'form', donor_level: @donor_level, campaign: @campaign

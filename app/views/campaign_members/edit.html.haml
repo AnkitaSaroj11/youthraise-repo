@@ -1,0 +1,17 @@
+.pt-12
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    Edit Member Info
+  = form_for @campaign_member, url: [@campaign, @campaign_member] do |f|
+    = f.fields_for :user, @campaign_member.user do |uf|
+      .pt-8
+        = uf.text_field :first_name, required: true, :placeholder => "First Name"
+      .pt-4
+        = uf.text_field :last_name, required: true, :placeholder => "Last Name"
+      .pt-4
+        = uf.email_field :email, :placeholder => "Email"
+      .pt-4
+        = uf.phone_field :mobile, :placeholder => "5558881234"
+      .pt-4
+        = f.select :role, ['member', 'admin']
+    .pt-8.justify-between
+      = f.submit "Update Member", class:"w-full"

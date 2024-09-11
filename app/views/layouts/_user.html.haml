@@ -1,0 +1,5 @@
+- if current_user
+  .pt-5
+    = button_to "Log out", user_session_path, method: :delete, class: "bg-indigo-900 text-white px-8 py-3 float-right rounded-lg hover:bg-indigo-700 cursor-pointer" 
+  .text-sm.font-normal.text-indigo-900.float-right.px-5.py-5
+    = link_to current_user.name, root_path

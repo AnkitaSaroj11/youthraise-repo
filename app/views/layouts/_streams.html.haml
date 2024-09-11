@@ -1,0 +1,7 @@
+- if @campaign_member
+  = turbo_stream_from(@campaign_member, :payments)
+- elsif @campaign
+  = turbo_stream_from(@campaign, :campaign_payments)
+- else
+  = turbo_stream_from(:all_payments)
+#payments

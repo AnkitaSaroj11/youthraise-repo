@@ -1,0 +1,11 @@
+%li.px-4.py-2
+  %b= member.name_or_email
+  .float-right
+    = button_to "Remove from Campaign", campaign_member_path(@campaign, member), method: :delete, class: "inline-flex items-center rounded-md border border-red-300 px-4 py-1 text-sm font-medium text-red-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
+  .text-sm.py-1
+    = member.status
+  - if member.needs_invitation?
+    .py-1= button_to "Send Profile Activation Email", send_activation_email_campaign_member_path(@campaign, member), method: :put, class: "inline-flex items-center rounded-md border border-indigo-300 px-3 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"
+  - if member.goal?
+    .text-sm.py-1 #{number_to_currency(member.amount_raised)}/#{number_to_currency(member.goal)}
+  

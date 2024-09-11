@@ -1,0 +1,25 @@
+.px-10.pt-10
+  .overflow-hidden.bg-white.shadow.sm:rounded-lg
+    %div.sm:px-6
+      .flex.flex-wrap.items-center.justify-between.sm:flex-nowrap
+        .text-lg.font-medium.leading-6.text-gray-900
+          %u= link_to "#{@organization.name}", organization_path(@organization)
+        .float-right.px-2
+          = render 'add_member_menu'
+    .border-t.border-gray-200.px-4.py-5.sm:p-0
+      %dl.sm:divide-y.sm:divide-gray-200
+        .p-4
+          .mt-8.flow-root
+            .-my-2.-mx-6.overflow-x-auto.lg:-mx-8
+              .inline-block.min-w-full.py-2.align-middle.sm:px-6.lg:px-8
+                .overflow-hidden.shadow.ring-1.ring-black.ring-opacity-5.sm:rounded-lg
+                  %table.min-w-full.divide-y.divide-gray-300
+                    %thead.bg-gray-50
+                      %tr
+                        %th.pl-6.pr-3.text-left.text-sm.font-semibold.text-gray-900{class: "py-3.5", scope: "col"} Last Name
+                        %th.px-3.text-left.text-sm.font-semibold.text-gray-900{class: "py-3.5", scope: "col"} First Name
+                        %th.px-3.text-left.text-sm.font-semibold.text-gray-900{class: "py-3.5", scope: "col"} Email
+                        %th.px-3.text-left.text-sm.font-semibold.text-gray-900{class: "py-3.5", scope: "col"} Mobile
+                        %th.px-3.text-left.text-sm.font-semibold.text-gray-900{class: "py-3.5", scope: "col"} Role
+                    %tbody.divide-y.divide-gray-200.bg-white
+                      = render partial: 'member', collection: @members, as: :member 

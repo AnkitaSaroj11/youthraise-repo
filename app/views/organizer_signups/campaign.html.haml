@@ -1,0 +1,18 @@
+= content_for :sidebar do
+  = render 'layouts/vertical_progress', 
+    steps: {"Sign Up" => {status: "complete", info: "Basic information about you", last: 'no'} ,
+    "Organization Info" => {status: "complete", info: "A few facts about your group", last: 'no'},
+    "Fundraiser Info" => {status: "current", info: "How much, why, and when you are fundraising", last: 'yes'}}
+.flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:py-3.sm:px-6.lg:px-8.bg-white
+  .mt-5.sm:mx-auto.w-full.sm:w-full.sm:max-w-md.p-8.sm:p-1
+    = form_for @campaign, url: update_campaign_organizer_signup_path(@campaign) do |f|
+      %div
+        = f.money_field :goal, required: true, autofocus: true, :placeholder => "500 Minimum", label: { text: "What is the total amount of money you would like to raise?" }
+      .pt-4
+        = f.money_field :individual_goal, required: true,  :placeholder => "50 Minimum", label: { text: "How much would you like each member of #{@campaign.organization.name} to raise?" }
+      .pt-4
+        = f.date_field :start_on, required: true, label: { text: "When do you want to BEGIN accepting payments for your fundraiser?" }
+      .pt-4
+        = f.date_field :end_on, required: true, label: { text: "When do you want to STOP accepting payments for your fundraiser?" }
+      .pt-8
+        = f.submit "Continue", class: "w-full"

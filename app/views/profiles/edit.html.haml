@@ -1,0 +1,20 @@
+%h1 Edit Your Profile
+= form_for(current_user, url: profile_path) do |form|
+  .pt-8
+    = form.text_field :first_name
+  .pt-4
+    = form.text_field :last_name
+  .pt-4
+    = form.email_field :email
+  .pt-4
+    = form.phone_field :mobile
+  .pt-4
+    = form.check_box :accepts_texts_from_youthraise
+    = form.label :accepts_texts_from_youthraise, "I agree to receive text messages from YouthRaise.com about campaigns I am a member of"
+    
+  .pt-8
+    = form.label :avatar, class: 'font-sans font-semibold text-slate-500'
+  .pt-4
+    = form.file_field :avatar
+  .pt-8
+    = form.submit

@@ -1,0 +1,32 @@
+.hidden.relative.z-30{"aria-labelledby" => "modal-title", "aria-modal" => "true", :role => "dialog", data: {
+  profile_modal_target: 'backdrop',
+  transition_enter: "ease-out duration-300",
+  transition_enter_start: "opacity-0",
+  transition_enter_end: "opacity-100",
+  transition_leave: "ease-in duration-200",
+  transition_leave_start: "opacity-100",
+  transition_leave_end: "opacity-0"}}
+
+  .fixed.inset-0.bg-gray-500.bg-opacity-75.transition-opacity
+    .flex.z-30.justify-center.text-center.sm:float-center.sm:p-0
+      .relative.transform.overflow-hidden.rounded-lg.z-30.bg-white.px-4.pt-5.pb-4.shadow-xl.transition-all.sm:my-8.sm:w-full.sm:max-w-sm.sm:p-6{data: {
+        profile_modal_target: 'modal',
+        transition_enter: "ease-out duration-300",
+        transition_enter_start: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+        transition_enter_end: "opacity-100 translate-y-0 sm:scale-100",
+        transition_leave: "ease-in duration-200",
+        transition_leave_start: "opacity-100 translate-y-0 sm:scale-100",
+        transition_leave_end: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}}
+        - if current_user.avatar.attached?
+          .mt-8.flex.justify-center
+            = image_tag current_user.avatar, class: 'w-28 h-28'
+        %div
+          = form_for current_user do |f|
+            .mt-3.grid.grid-cols-1
+              - if @campaign_member
+                = hidden_field_tag :campaign_member_id, @campaign_member.id
+              = f.file_field :avatar, class: "text-center items-center pl-12"
+            = f.submit "Save", class: "w-3/4 mt-4 h-10 py-1"
+        .mt-5.sm:mt-6
+          %button.inline-flex.rounded-md.bg-indigo-600.px-4.py-2.text-base.font-medium.text-white.shadow-sm.hover:bg-indigo-700.focus:outline-none.sm:text-sm.w-64.justify-center{:type => "button", data: {action: 'profile-modal#close'}}
+            Close

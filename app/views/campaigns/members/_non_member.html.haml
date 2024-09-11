@@ -1,0 +1,4 @@
+%li.px-4.py-2
+  %b= non_member.name_or_email
+  .float-right
+    = button_to "Add to Campaign", add_existing_member_campaign_members_path(@campaign, user_id: non_member.id), method: :post, class: "inline-flex items-center rounded-md border border-indigo-300 px-4 py-1 text-sm font-medium text-indigo-600 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 cursor-pointer"

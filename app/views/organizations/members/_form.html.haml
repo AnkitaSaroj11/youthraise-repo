@@ -1,0 +1,19 @@
+= form_for [organization, member] do |f|
+  - if member.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(member.errors.count, "error")
+        prohibited this member from being saved:
+      %ul
+        - member.errors.each do |error|
+          %li= error.full_message
+  %div.pt-8
+    = f.text_field :first_name
+  %div.pt-4
+    = f.text_field :last_name
+  %div.pt-4
+    = f.email_field :email
+  %div.pt-4
+    = f.phone_field :mobile
+  %div.pt-8
+    = f.submit "Save"

@@ -1,0 +1,45 @@
+.hidden.relative.z-20{"aria-labelledby" => "modal-title", "aria-modal" => "true", :role => "dialog", data: {
+  social_modal_target: 'backdrop',
+  transition_enter: "ease-out duration-300",
+  transition_enter_start: "opacity-0",
+  transition_enter_end: "opacity-100",
+  transition_leave: "ease-in duration-200",
+  transition_leave_start: "opacity-100",
+  transition_leave_end: "opacity-0"}}
+
+  .fixed.z-20.inset-0.bg-gray-500.bg-opacity-75.transition-opacity
+    .fixed.inset-0.overflow-y-auto{data:{controller:"clipboard"}}
+      .flex.items-end.justify-center.text-center.sm:items-center.sm:p-0
+        .relative.transform.overflow-hidden.rounded-lg.bg-white.px-4.pt-5.pb-4.text-left.shadow-xl.transition-all.sm:my-8.sm:w-full.sm:max-w-sm.sm:p-6{data: {
+          social_modal_target: 'modal',
+          transition_enter: "ease-out duration-300",
+          transition_enter_start: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95",
+          transition_enter_end: "opacity-100 translate-y-0 sm:scale-100",
+          transition_leave: "ease-in duration-200",
+          transition_leave_start: "opacity-100 translate-y-0 sm:scale-100",
+          transition_leave_end: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"}}
+          %div
+            .mt-20
+              %button.hidden.inline-flex.w-full.justify-center.rounded-md.border.border-transparent.bg-indigo-600.px-4.py-2.text-base.font-medium.text-white.shadow-sm.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.focus:ring-offset-2.sm:text-sm{:type => "button",
+              data: {clipboard_target: "button", action: 'clipboard#copy'}}
+                Copy to Clipboard
+            .mt-3.sm:mt-5
+              %h3#modal-title.hidden.text-base.font-semibold.leading-6.text-gray-900{data: {clipboard_target: 'supported'}}
+                Click the "Copy to Clipboard" button and paste into
+                - if type == 'social'
+                  your social media account
+                - else
+                  a text message
+              %h3#modal-title.hidden.text-base.font-semibold.leading-6.text-gray-900{data: {clipboard_target: 'unsupported'}}
+                Copy and the paste the text below into
+                - if type == 'social'
+                  your social media account
+                - else
+                  a text message
+              .mt-2
+                %p.text-sm.text-gray-500{data:{clipboard_target: "source"}}
+                  = @campaign_member.personal_message
+                  Please visit #{campaign_member_donations_url(@campaign_member.uuid)} to contribute in less than a minute
+          .mt-5.sm:mt-6
+            %button.inline-flex.w-full.justify-center.rounded-md.border.border-transparent.bg-indigo-600.px-4.py-2.text-base.font-medium.text-white.shadow-sm.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.focus:ring-offset-2.sm:text-sm{:type => "button", data: {action: 'social-modal#close'}}
+              Close

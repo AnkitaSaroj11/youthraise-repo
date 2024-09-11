@@ -1,0 +1,7 @@
+- if @campaign_member.status_key == 'needs_personal_message'
+  = content_for :full_screen do
+    = render @campaign_member.status_key, campaign_member: @campaign_member
+- else
+  = content_for :sidebar do
+    = render 'campaign_info'
+  = render @campaign_member.status_key, campaign_member: @campaign_member

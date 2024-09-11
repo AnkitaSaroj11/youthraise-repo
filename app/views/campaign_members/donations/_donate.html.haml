@@ -1,0 +1,11 @@
+/ Feature section
+.mx-auto.mt-10.max-w-7xl.px-6.sm:mt-28.lg:px-8.mb-40
+  .mx-auto.max-w-2xl.lg:text-center
+    %h2.text-base.font-semibold.leading-7.text-indigo-600 
+      You can make a difference
+    %p.mt-2.text-3xl.font-bold.tracking-tight.text-gray-900.sm:text-4xl 
+      Donate Now
+    -# %p.mt-6.text-lg.leading-8.text-gray-600 Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc.
+  .mx-auto.mt-16.max-w-2xl.sm:mt-20.lg:mt-24.lg:max-w-none
+    %ul.grid.max-w-xl.grid-cols-1.gap-x-8.gap-y-16.lg:max-w-none.lg:grid-cols-3
+      = render partial: '/campaigns/donor_levels/donor_level', collection: donor_levels, locals: {admin: false}

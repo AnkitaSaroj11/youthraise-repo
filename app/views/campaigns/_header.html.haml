@@ -1,0 +1,30 @@
+.md:flex.md:items-center.md:justify-between
+  .min-w-0.flex-1
+    %h2.text-2xl.font-bold.leading-7.text-gray-900.sm:truncate.sm:text-3xl.sm:tracking-tight 
+      = link_to @campaign.name, campaign_path(@campaign)
+  .mt-4.flex.md:ml-4.md:mt-0
+    %button.inline-flex.items-center.rounded-md.bg-white.px-3.text-sm.font-semibold.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.hover:bg-gray-50{:type => "button"}
+      = link_to edit_campaign_path(campaign), id: 'menu-item-0', class: 'text-gray-700 group flex items-center py-2 text-sm', :role => "menuitem", :tabindex => "-1" do
+        %i.fa-solid.fa-edit
+        .hidden.sm:flex.px-4 Edit Campaign
+    %button.ml-3.inline-flex.items-center.rounded-md.bg-white.px-3.text-sm.font-semibold.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.hover:bg-gray-50{:type => "button"}
+      = link_to campaign_member_dashboard_path(@current_campaign_member), id: 'menu-item-0', class: 'text-gray-700 group flex items-center py-2 text-sm', :role => "menuitem", :tabindex => "-1" do
+        %i.fa-solid.fa-binoculars
+        .hidden.sm:flex.px-4 Personal Dashboard
+    %button.ml-3.inline-flex.items-center.rounded-md.bg-white.px-3.text-sm.font-semibold.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.hover:bg-gray-50{:type => "button"}
+      = link_to campaign_donor_levels_path(campaign), id: 'menu-item-4', class: 'group flex items-center text-sm', :role => "menuitem", :tabindex => "-1" do
+        %i.fa-solid.fa-gift
+        .hidden.sm:flex.px-4 Donor Levels & Perks
+    %button.ml-3.inline-flex.items-center.rounded-md.bg-white.px-3.text-sm.font-semibold.text-gray-900.shadow-sm.ring-1.ring-inset.ring-gray-300.hover:bg-gray-50{:type => "button"}
+      = link_to campaign_messages_path(campaign), id: 'menu-item-5', class: 'group flex items-center text-sm', :role => "menuitem", :tabindex => "-1" do
+        %i.fa-solid.fa-envelope
+        .hidden.sm:flex.px-4 Message Members
+  .mt-4.flex.md:ml-4.md:mt-0
+    = render '/campaigns/add_member_menu', campaign: campaign
+    %button.ml-3.inline-flex.items-center.rounded-md.bg-indigo-600.px-3.py-2.text-sm.font-semibold.text-white.shadow-sm.hover:bg-indigo-700.focus-visible:outline.focus-visible:outline-2.focus-visible:outline-offset-2.focus-visible:outline-indigo-600{:type => "button"}
+      = link_to campaign_exports_path(campaign), id: 'menu-item-5', class: 'text-white-700 group flex items-center text-sm', :role => "menuitem", :tabindex => "-1" do
+        .h-5.w-5.text-white-400.group-hover:text-gray-500{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20"}
+          %i.fa-solid.fa-cloud-arrow-down
+        .hidden.sm:flex.px-4 Export Info
+        
+    

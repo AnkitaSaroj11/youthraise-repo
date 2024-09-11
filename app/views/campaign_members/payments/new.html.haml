@@ -1,0 +1,22 @@
+= form_with model: @supporter, url: campaign_member_payments_path(@campaign_member.uuid), method: :post, data: {turbo: false} do |f|
+  - if @supporter.errors.any?
+    %div{:style => "color: red"}
+      %h2
+        = pluralize(@supporter.errors.count, "error")
+        prohibited this from being saved:
+      %ul
+        - @supporter.errors.each do |error|
+          %li= error.full_message
+  %div
+    = f.hidden_field :uuid, value: @supporter.uuid
+    = f.text_field :name
+  %div
+    = f.email_field :email
+  %div
+    = f.text_field :mobile
+  %div
+    = f.select :visibility, [["Full Name", "full"], ["First Name Only", "first"], ["Anonymous", "anonymous"]]
+  %div
+    = f.collection_select :stripe_price_id, @campaign_member.campaign.payment_options, :stripe_price_id, :amount
+  %div
+    = f.submit

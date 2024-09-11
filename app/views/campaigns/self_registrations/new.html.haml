@@ -1,0 +1,23 @@
+.px-10.sm:px-40.pt-12
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    Create Your Profile for #{@campaign.name}
+  = form_for [@campaign, @member], url: campaign_self_registration_path do |f|
+    .pt-8
+      = f.text_field :first_name, required: true, :placeholder => "First Name"
+    .pt-4
+      = f.text_field :last_name, required: true, :placeholder => "Last Name"
+    .pt-4
+      - if @email_signup
+        = f.email_field :email, required: true, :placeholder => "Email"
+        = link_to "Sign up with your phone instead", new_campaign_self_registration_path, class: "text-sm text-indigo-900"
+      - else
+        = f.phone_field :mobile, required: true, :placeholder => "Mobile"
+        = link_to "Sign up with your email instead", new_campaign_self_registration_path(email_signup: "y"), class: "text-sm text-indigo-900"
+        .relative.flex.items-start.py-3
+          %label
+            = f.check_box :accept_text_messages, {required: true}
+          .ml-3.min-w-0.flex-1.text-sm
+            .font-medium.leading-6.text-gray-700
+              = f.label :donations, "I agree to receive text messages from YouthRaise.com about this campaign"
+    .pt-8.justify-between
+      = f.submit "Join #{@campaign.name}", class:"w-full"

@@ -1,0 +1,46 @@
+= content_for :sidebar do
+  
+  = render 'recent_payments', payments: @payments, campaign_member: @campaign_member
+  - if current_user && @campaign_member.user == current_user
+    .px-10.pt-3
+      = link_to "Personal Dashboard", campaign_member_dashboard_path(@campaign_member), class: "bg-indigo-400 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 cursor-pointer"
+
+-# .md:hidden
+-#   .font-sans.subpixel-antialiased.text-2xl.font-bold
+-#     Please help #{@campaign_member.name_or_email} raise #{number_to_currency @campaign_member.goal, precision: 2} for #{@campaign_member.campaign.organization.name}
+-#   .text-xl.font-medium.font-sans
+-#     #{distance_of_time_in_words_to_now(@campaign_member.campaign.end_on)} left - Please contribute now!
+-#   .flex
+-#     = render partial: 'payment_option', collection: @campaign_member.visible_payment_options
+-#   .pt-4.md:w-96
+-#     = render 'other_payment_option', payment_option: @campaign_member.other_payment_option
+-#   .pt-4.md:pt-0.w-36.md:pl-10= @campaign_member.qr_code_svg
+-#   .pt-2.text-md.font_sans.text-slate-600.font-medium
+-#     = @campaign_member.personal_message
+
+-# .hidden.md:fixed.md:flex.md:flex-col
+
+.p-6.sm:p-4
+  .min-w-0.flex-1
+    .font-sans.text-xl.font-bold
+      Please help #{@campaign_member.name_or_email} raise #{number_to_currency @campaign_member.goal, precision: 2} for #{@campaign_member.campaign.organization.name}
+  .mt-2.flex
+    .text-lg.font-medium.font-sans
+      #{distance_of_time_in_words_to_now(@campaign_member.campaign.end_on)} left - Please contribute now!
+  %ul.mt-4.grid.grid-cols-1.gap-6.sm:grid-cols-2.md:grid-cols-3.lg:grid-cols-4{:role => "list"}
+    = render partial: '/campaigns/donor_levels/donor_level', collection: @campaign.donor_levels, locals: {admin: false}
+  .pt-4.grid.lg:grid-cols-12
+    .col-span-4
+      .flex
+        = render partial: 'payment_option', collection: @campaign_member.visible_payment_options
+      .pt-4.w-96
+        = render 'other_payment_option', payment_option: @campaign_member.other_payment_option
+      .pt-6.sm:pt-4.w-40
+        = @campaign_member.qr_code_svg
+
+    .px-0.sm:px-8.col-span-8
+      .overflow-hidden.rounded-lg.bg-white.mr-4
+        .border-b.border-gray-200.bg-white.px-4.py-5.sm:px-6
+          .-ml-4.-mt-2.flex.flex-wrap.items-center.justify-between.sm:flex-nowrap
+            .pt-6.sm:pt-2.text-sm.font_sans.text-slate-600.font-medium
+              = @campaign_member.personal_message

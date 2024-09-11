@@ -1,0 +1,23 @@
+= content_for :full_screen do
+  .isolate.overflow-hidden.bg-indigo-900
+    .mx-auto.max-w-7xl.px-6.pb-96.pt-24.text-center.sm:pt-32.lg:px-8
+      .mx-auto.max-w-xl
+        %h2.text-2xl.font-semibold.leading-5.text-orange-700
+          Personal Messages
+      .relative.mt-6
+        %p.mx-auto.max-w-2xl.text-lg.leading-8.text-white.pb-20
+          Our AI Bot created three personal messages for you. Choose the one you like the most.
+        %svg.absolute.-top-10.-z-10.sm:-top-12.md:-top-20.lg:-top-12.xl:top-0{class: "left-1/2 h-[64rem] -translate-x-1/2 [mask-image:radial-gradient(closest-side,white,transparent)]", viewbox: "0 0 1208 1024", xmlns: "http://www.w3.org/2000/svg"}
+          %ellipse{cx: "604", cy: "512", fill: "url(#6d1bd035-0dd1-437e-93fa-59d316231eb0)", rx: "604", ry: "512"}
+          %defs
+            %radialgradient#6d1bd035-0dd1-437e-93fa-59d316231eb0
+              %stop{"stop-color" => "#7775D6"}
+              %stop{"stop-color" => "#e3593b"}
+        .mx-auto.grid.max-w-md.grid-cols-1.gap-8.lg:max-w-4xl.lg:grid-cols-2
+          - campaign_member.personal_messages.each_with_index do |personal_message|
+            %div.flex.flex-col.justify-between.rounded-3xl.bg-white.p-8.shadow-md.ring-1.sm:p-10{class: "ring-gray-900/10"}
+              .text-xs.leading-6.text-gray-600.text-left.pb-3
+                = simple_format(sanitize personal_message.message)
+              = form_with model: campaign_member, url: campaign_member_dashboard_path(campaign_member) do |f|
+                = f.hidden_field :selected_personal_message_id, value: personal_message.id
+                = f.submit "Select Message"

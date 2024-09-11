@@ -1,0 +1,22 @@
+= content_for :sidebar do
+  = render 'layouts/vertical_progress', 
+    steps: {"Sign Up" => {status: "complete", info: "Basic information about you", last: 'no'} ,
+    "Organization Info" => {status: "complete", info: "A few facts about your group", last: 'no'},
+    "Fundraiser Info" => {status: "complete", info: "How much, why, and when you are fundraising", last: 'no'},
+    "Member Info" => {status: "current", info: "Who is going to help raise money", last: 'yes'}}
+.flex.min-h-full.w-full.flex-col.justify-center.py-10.sm:py-3.sm:px-6.lg:px-8.bg-white
+  .sm:mx-auto.sm:w-full.sm:max-w-md
+    %h2.mt-10.sm:mt-20.text-center.text-md.sm:text-xl.font-semibold.tracking-tight.text-black
+      Import Members from a CSV File
+    %p.p-4.text-sm.font-light
+      Your CSV file must include the following columns: first , last and email.
+  .mt-5.sm:mx-auto.w-full.sm:w-full.sm:max-w-md.p-8.sm:p-1
+    = form_for @import, url: create_file_import_organizer_signup_path(@campaign) do |f|
+      .pt-5
+        = f.check_box :activate_members, checked: 'checked'
+        = f.label :activate_members, "Send a profile activation email to imported members?"
+        
+      .pt-5
+        = f.file_field :file, accept: 'text/csv', label: { text: "CSV file of your members" }
+      .pt-8
+        = f.submit "Import", class: "w-full"

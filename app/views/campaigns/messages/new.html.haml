@@ -1,0 +1,24 @@
+= content_for :sidebar do
+  = render '/campaigns/sidebar', campaign: @campaign
+= render '/campaigns/alerts', campaign: @campaign
+= render '/campaigns/header', campaign: @campaign
+
+.px-10.sm:px-40.pt-12
+  .text-md.sm:text-xl.font-semibold.leading-5.text-black
+    - if @message.text?
+      %p
+        YouthRaise will send a text message to all members who allow text-based communication with YouthRaise. 
+        Otherwise, it will send an email.
+    - else
+      Send an email message to campaign members
+
+  = form_for [@campaign, @message] do |f|
+    = f.select :send_to, options_for_select(Message::SEND_TO_OPTIONS.map{|k, v| [v, k]})
+    = f.hidden_field :delivery_type
+    - unless @message.text?
+      .pt-4
+        = f.text_field :subject, required: true, :placeholder => "Subject"
+    .pt-4
+      = f.text_area :body, required: true, :placeholder => "Message Body"
+    .pt-8.justify-between
+      = f.submit "Send Message", class:"w-full"
