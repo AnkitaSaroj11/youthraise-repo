@@ -8,6 +8,7 @@ phases:
       - echo Installing AWS CLI and Docker
       - aws --version
       - docker --version
+
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
@@ -22,6 +23,7 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:=app}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG1=${COMMIT_HASH:=resque}
+
   build:
     commands:
       - echo Downloading secrets from S3...
@@ -30,9 +32,10 @@ phases:
       - echo Build started on `date`
       - echo Building Docker images...
       - docker build -t $ECR_REPOSITORY_URI:app .
-      - docker tag $ECR_REPOSITORY_URI:app $ECR_REPOSITORY_URI:$IMAGE_TAG 
+      - docker tag $ECR_REPOSITORY_URI:app $ECR_REPOSITORY_URI:$IMAGE_TAG
       - docker build -t $ECR_REPOSITORY_URI:resque -f resque.Dockerfile .
       - docker tag $ECR_REPOSITORY_URI:resque $ECR_REPOSITORY_URI:$IMAGE_TAG1
+
   post_build:
     commands:
       - echo Build completed on `date`
