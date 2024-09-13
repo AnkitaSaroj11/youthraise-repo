@@ -3,12 +3,12 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 20
+      docker: 19
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-9)
       - IMAGE_TAG=${COMMIT_HASH:=app}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -18,23 +18,22 @@ phases:
       - aws s3 cp s3://trooptrack-ble/master.key ./config/master.key
       - aws s3 cp s3://trooptrack-ble/youthraise-cicd/production.key ./config/credentials/production.key
       - echo Build started on `date`
-      - echo Building the Docker image for app...
+      - echo Building Docker images...
       - docker build -t $ECR_REPOSITORY_URI:app .
       - docker tag $ECR_REPOSITORY_URI:app $ECR_REPOSITORY_URI:$IMAGE_TAG 
-      - echo Building the Docker image for resque...
       - docker build -t $ECR_REPOSITORY_URI:resque -f resque.Dockerfile .
       - docker tag $ECR_REPOSITORY_URI:resque $ECR_REPOSITORY_URI:$IMAGE_TAG1
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker images app and resque to ECR repository...
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - echo Pushing Docker images...
       - docker push $ECR_REPOSITORY_URI:app
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
-      - printf '{"ImageURI":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG > imageDetail.json
       - docker push $ECR_REPOSITORY_URI:resque
       - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG1
-      - printf '{"ImageURI1":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG > imageDetail1.json
+      - printf '{"ImageURI":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG > imageDetail.json
+      - printf '{"ImageURI1":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG1 > imageDetail1.json
+
 artifacts:
   files:
     - imageDetail.json
