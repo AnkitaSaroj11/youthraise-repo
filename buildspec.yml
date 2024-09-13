@@ -14,11 +14,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - echo "Region: $AWS_DEFAULT_REGION"
       - echo "ECR URI: $ECR_REPOSITORY_URI"
-      - |
-        if ! aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI; then
-          echo 'Docker login failed'
-          exit 1
-        fi
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-9)
       - IMAGE_TAG=${COMMIT_HASH:=app}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -30,9 +26,10 @@ phases:
       - aws s3 cp s3://trooptrack-ble/master.key ./config/master.key
       - aws s3 cp s3://trooptrack-ble/youthraise-cicd/production.key ./config/credentials/production.key
       - echo Build started on `date`
-      - echo Building Docker images...
+      - echo Building Docker image for app...
       - docker build -t $ECR_REPOSITORY_URI:app .
       - docker tag $ECR_REPOSITORY_URI:app $ECR_REPOSITORY_URI:$IMAGE_TAG
+      - echo Building Docker image for resque...
       - docker build -t $ECR_REPOSITORY_URI:resque -f resque.Dockerfile .
       - docker tag $ECR_REPOSITORY_URI:resque $ECR_REPOSITORY_URI:$IMAGE_TAG1
 
@@ -40,26 +37,10 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing Docker images to ECR...
-      - |
-        if ! docker push $ECR_REPOSITORY_URI:app; then
-          echo 'Docker push for app failed'
-          exit 1
-        fi
-      - |
-        if ! docker push $ECR_REPOSITORY_URI:$IMAGE_TAG; then
-          echo 'Docker push for app with tag failed'
-          exit 1
-        fi
-      - |
-        if ! docker push $ECR_REPOSITORY_URI:resque; then
-          echo 'Docker push for resque failed'
-          exit 1
-        fi
-      - |
-        if ! docker push $ECR_REPOSITORY_URI:$IMAGE_TAG1; then
-          echo 'Docker push for resque with tag failed'
-          exit 1
-        fi
+      - docker push $ECR_REPOSITORY_URI:app
+      - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $ECR_REPOSITORY_URI:resque
+      - docker push $ECR_REPOSITORY_URI:$IMAGE_TAG1
       - printf '{"ImageURI":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG > imageDetail.json
       - printf '{"ImageURI1":"%s:%s"}' $ECR_REPOSITORY_URI $IMAGE_TAG1 > imageDetail1.json
 
