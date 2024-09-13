@@ -9,10 +9,11 @@ phases:
       - aws --version
       - docker --version
 
-  pre_build:
+   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ECR_REPOSITORY_URI
+      - aws --version
+      - $(aws ecr get-login --region ap-south-1 --no-include-email)
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-9)
       - IMAGE_TAG=${COMMIT_HASH:=app}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
